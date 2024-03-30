@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ hotel.name }} Rating</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            color: #28a745;
+            text-align: center;
+        }
+
+        p {
+            color: #343a40;
+            text-align: center;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .button-container button,
+        .button-container a {
+            flex: 1;
+            margin: 0 5px;
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .button-container button {
+            background-color: #28a745;
+            color: #fff;
+        }
+
+        .button-container a {
+            background-color: #007bff;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>{{ hotel.name }}</h1>
+        <p><strong style="color: darkgreen">Other Key Areas To Rate: </strong>{{ hotel.description }}</p>
+
+        <ul>
+            {% for review in reviews %}
+                <li>{{ review.user.username }}: {{ review.comments }}</li>
+            {% endfor %}
+        </ul>
+
+        <!-- Form for submitting a new review -->
+        <form method="post" action="{% url 'submit_review' hotel_id=1 %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div class="button-container">
+                <button type="submit">Submit your Review</button>
+                <a href="{% url 'review_results' %}">View Rating Results</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

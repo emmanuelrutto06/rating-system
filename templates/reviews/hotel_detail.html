@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ hotel.name }} Detail</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: relative; /* Add relative positioning */
+        }
+
+        h1, h2 {
+            color: #28a745;
+            text-align: center;
+        }
+
+        p {
+            color: #343a40;
+            margin-bottom: 20px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+        }
+
+        button[type="submit"] {
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #218838;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: #28a745;
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #28a745;
+        }
+
+        /* Add styling for the logout button */
+        .logout-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Add logout button -->
+        <a href="{% url 'logout' %}" class="btn logout-btn">Logout</a>
+
+        <h1>{{ hotel.name }}</h1>
+        <p><strong>Description:</strong> {{ hotel.description }}</p>
+
+        <h2>Reviews:</h2>
+        <ul>
+            {% for review in reviews %}
+                <li><strong>{{ review.user.username }}:</strong> {{ review.text }}</li>
+            {% endfor %}
+            <!-- Display the user's submitted review -->
+            {% if request.method == 'POST' %}
+                <li><strong>{{ request.user.username }}:</strong> {{ request.POST.comment }} - Overall Rating: {{ request.POST.overall_rating }}</li>
+            {% endif %}
+        </ul>
+        <br>
+        <!-- Form for submitting a new review -->
+        <h2>Submit a Review:</h2>
+        <form method="post" action="{% url 'submit_review' hotel.id %}">
+            {% csrf_token %}
+            <!-- Star Rating Inputs -->
+            <label for="overall_rating">Overall Rating:</label><br>
+            <select id="overall_rating" name="overall_rating">
+                <option value="1">Bad</option>
+                <option value="2">Average</option>
+                <option value="3">Fair</option>
+                <option value="4">Very Good</option>
+                <option value="5">Excellent</option>
+            </select><br><br>
+            <!-- Add other star rating inputs if needed -->
+            <button type="submit">Submit Review</button><br><br>
+        </form>
+
+        <!-- Button to view rating results -->
+    </div>
+</body>
+</html>

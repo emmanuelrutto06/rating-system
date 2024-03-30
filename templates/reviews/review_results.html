@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Ratings and Reviews</title>
+    <style>
+        /* General styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            color: #343a40;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1, h2 {
+            color: #28a745;
+            text-align: center;
+        }
+
+        /* Rating styles */
+        .rating-container {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .rating-item {
+            margin-bottom: 15px;
+        }
+        .rating-label {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .rating-box {
+            width: 100px;
+            height: 20px;
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            display: inline-block;
+            margin-right: 5px;
+        }
+        .rating-box-filled {
+            height: 100%;
+            background-color: #007bff;
+            border-radius: 2px;
+        }
+
+        /* Review styles */
+        .review-container {
+            margin-top: 40px;
+        }
+        .review-item {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #fff;
+            position: relative;
+        }
+        .review-item strong {
+            display: block;
+            margin-bottom: 5px;
+            color: #28a745;
+        }
+        .edit-delete-buttons {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+        }
+        .edit-delete-buttons button {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .edit-button {
+            background-color: #007bff;
+            color: #fff;
+            margin-right: 10px;
+        }
+        .delete-button {
+            background-color: #dc3545;
+            color: #fff;
+        }
+        .edit-delete-buttons button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Hotel Ratings and Reviews</h1>
+
+        <!-- Sample ratings for different criteria -->
+        <div class="rating-container">
+            <h2>Hotel Ratings</h2>
+            <div class="rating-item">
+                <p class="rating-label">Cleanliness:</p>
+                <div class="rating-box">
+                    <div class="rating-box-filled" style="width: 80%;"></div>
+                </div>
+            </div>
+
+            <div class="rating-item">
+                <p class="rating-label">Staff Friendliness:</p>
+                <div class="rating-box">
+                    <div class="rating-box-filled" style="width: 70%;"></div>
+                </div>
+            </div>
+
+            <div class="rating-item">
+                <p class="rating-label">Amenities:</p>
+                <div class="rating-box">
+                    <div class="rating-box-filled" style="width: 90%;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- User review results -->
+        <div class="review-container">
+            <h2>User Review Results</h2>
+            <ul>
+                {% for review in user_reviews %}
+                    <li class="review-item">
+                        <strong>Hotel Name:</strong> {{ review.hotel.name }}<br>
+                        <strong>Overall Rating:</strong> {{ review.overall_rating }}<br>
+                        <strong>Cleanliness Rating:</strong> {{ review.cleanliness_rating }}<br>
+                        <strong>Staff Rating:</strong> {{ review.staff_rating }}<br>
+                        <strong>Amenities Rating:</strong> {{ review.amenities_rating }}<br>
+                        <strong>Comments:</strong> {{ review.comments }}<br>
+
+                        <!-- Edit and delete buttons -->
+                        <div class="edit-delete-buttons">
+                            <form method="post" action="{% url 'edit_review' review.id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="edit-button">Edit</button><br><br><br><br>
+                            </form>
+                            <form method="post" action="{% url 'delete_review' review.id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="delete-button">Delete</button>
+                            </form>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

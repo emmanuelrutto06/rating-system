@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0; /* Set the background color of the entire page */
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff; /* Set a white background for the content */
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+        }
+
+        h1 {
+            text-align: center;
+            color: #333; /* Set a dark color for the heading */
+        }
+
+        p {
+            text-align: center;
+            color: #666; /* Set a slightly darker color for the paragraph */
+        }
+
+        .btn {
+            display: block;
+            width: 200px;
+            margin: 20px auto;
+            padding: 10px;
+            text-align: center;
+            color: #fff;
+            background-color: #28a745; /* Set a primary color for the button */
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background-color: #28a745; /* Darken the button color on hover */
+        }
+
+        /* Add styles for the hotel images */
+        .hotel-images {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 40px;
+        }
+
+        .hotel-image {
+            width: 200px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to Our Hotel Review and Rating System!</h1>
+        <p>This is the home page of our application. Explore and rate our hotel.</p>
+<a href="{% url 'hotel_detail' hotel_id=1 %}" class="btn">Rate Our Hotel</a>
+
+        <!-- Hotel Images Section -->
+        <div class="hotel-images">
+            <p>Welcome to our Hotel Services</p>
+{#            <img src="hotel1.jpg" alt="{{ hotel.name }}" class="hotel-image">#}
+{#            <img src="hotel2.jpg" alt="Hotel 2" class="hotel-image">#}
+{#            <img src="hotel3.jpg" alt="Hotel 3" class="hotel-image">#}
+            <!-- Add more hotel images as needed -->
+        </div>
+    </div>
+</body>
+</html>

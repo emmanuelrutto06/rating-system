@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Manage Reviews</title>
+</head>
+<body>
+    <h1>Manage Reviews</h1>
+    <h2>Reviews to Approve/Reject:</h2>
+    <ul>
+        {% for review in reviews_to_approve %}
+            <li>
+                <strong>User:</strong> {{ review.user.username }}<br>
+                <strong>Comments:</strong> {{ review.comments }}<br>
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <input type="hidden" name="review_id" value="{{ review.id }}">
+                    <button type="submit">Submit</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
