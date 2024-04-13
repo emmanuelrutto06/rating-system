@@ -37,4 +37,4 @@ urlpatterns = [
     # path('submit-review/<int:hotel_id>/', views.submit_review, name='submit_review'),
     # path('get-ratings/<int:hotel_id>/', views.get_ratings, name='get_ratings'),
 #
-# ]
+# 
